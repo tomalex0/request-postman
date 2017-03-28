@@ -1,2 +1,6 @@
 # request-postman
-Generate postman json from request-debug
+Generate not so exact postman json from request-debug
+
+
+- `npm install request`
+- `npm install request-debug`
