@@ -1,0 +1,23 @@
+{
+	"variables": [],
+	"info": {
+		"name": "nameofcollection",
+		"_postman_id": "b56f5186-132a-74b9-7d1e-480bf437a627",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [{
+		"name": "nameofcollection",
+		"request": {
+			"url": "https://localhost",
+			"method": "POST",
+			"header": [],
+			"body": {
+				"mode": "raw",
+				"raw": "{\r\n  \"criteria\": {\r\n    \"randomize\": true,\r\n    \"view\": \"restricted\",\r\n    \"criteria\": {\r\n      \"filter\": {},\r\n      \"keyword\": \"\"\r\n    }\r\n  },\r\n  \"role\": \"admin\"\r\n}"
+			},
+			"description": ""
+		},
+		"response": []
+	}]
+}
