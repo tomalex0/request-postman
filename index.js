@@ -1,4 +1,4 @@
-
+var rp = require('request-promise');
 var fs = require('fs');
 
 function appendObject(obj){
@@ -22,11 +22,35 @@ function appendObject(obj){
 
         fs.writeFileSync(apifilePath, configJSON);
     }
+var rp = require('request-promise');
+var fs = require('fs');
+
+function appendObject(obj){
+    var config;
+    var apifilePath = "../api-postman.json";
+    try {
+        console.log("********************* TRY *********************");
+        var configFile = fs.readFileSync(apifilePath);
+        config = JSON.parse(configFile);
+
+        var copy =  Object.assign(config, obj);
+        var configJSON = JSON.stringify(config, null, 4);
+        fs.writeFileSync(apifilePath, configJSON);
+    } catch(e){
+
+        console.log("********************* CATCH *********************");
+
+        var copy =  Object.assign({}, obj);
+
+        var configJSON = JSON.stringify(copy , null, 4);
+
+        fs.writeFileSync(apifilePath, configJSON);
+    }
 
 
 }
 
-function constructPostmanObj (data){
+function constructPostmanObj (data, functionName){
     var options = {
         url: data.uri,
         method: data.method
@@ -39,26 +63,41 @@ function constructPostmanObj (data){
         };
     }
 
+
+
     var uniqueKey = `${data.uri}_${data.method}`;
 
     var optionsObj = {};
 
-    optionsObj[uniqueKey] =  options;
+    optionsObj[uniqueKey] =  {
+        name :  functionName,
+        request : options
+    };
 
     appendObject(optionsObj);
 }
+/**
+require('request-debug')(rp, function(type, data, r) {
+    // put your request or response handling logic here
+    if(type === 'request') {
+        try {
+            //Get Function Name
+            var requestString  = ""+r._rp_promise._fulfillmentHandler0+"";
+            var functionName = requestString.split("(")[0].split(" ")[1];
 
-//Uncomment below code to make it work with actual code install request and request-debug
-/*
 
-var request = require('request');
-require('request-debug')(request, function(type, data, r) {
-        // put your request or response handling logic here
-        if(type === 'request') {
-          constructPostmanObj(data);
+            //console.log(r,'--------------')
+            console.log(functionName,'-------------------',data);
+            constructPostmanObj(data,functionName);
+
+        } catch (e) {
+
+            constructPostmanObj(data,'unKnownFuncion');
+            console.log(e,'-------ERROR-------')
         }
+    }
 });
-*/
+**/
 
 
 //Dummy array to simular request-debug
@@ -112,7 +151,7 @@ var requestArr = [{
 
 requestArr.forEach(function(data, index){
 
-    constructPostmanObj(data);
+    constructPostmanObj(data,'functionName');
 
 });
 
