@@ -3,30 +3,6 @@ var fs = require('fs');
 
 function appendObject(obj){
     var config;
-    var apifilePath = "./api-postman.json";
-    try {
-        console.log("********************* TRY *********************");
-        var configFile = fs.readFileSync(apifilePath);
-        config = JSON.parse(configFile);
-
-        var copy =  Object.assign(config, obj);
-        var configJSON = JSON.stringify(config, null, 4);
-        fs.writeFileSync(apifilePath, configJSON);
-    } catch(e){
-
-        console.log("********************* CATCH *********************");
-
-        var copy =  Object.assign({}, obj);
-
-        var configJSON = JSON.stringify(copy , null, 4);
-
-        fs.writeFileSync(apifilePath, configJSON);
-    }
-var rp = require('request-promise');
-var fs = require('fs');
-
-function appendObject(obj){
-    var config;
     var apifilePath = "../api-postman.json";
     try {
         console.log("********************* TRY *********************");
